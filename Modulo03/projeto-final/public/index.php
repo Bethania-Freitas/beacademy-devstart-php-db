@@ -2,50 +2,34 @@
 
 include '../vendor/autoload.php';
 
-use App\Connection\Connection;
+use App\Controller\ErrorController;
 
-$connection = Connection::getConnection();
+// use App\Connection\Connection;
 
-$query = 'SELECT * FROM tb_category;';
+// $connection = Connection::getConnection();
 
-$preparacao = $connection->prepare($query);
-$preparacao->execute();
+// $query = 'SELECT * FROM tb_category;';
 
-while ($registro = $preparacao->fetch()){
-    var_dump($registro);
+// $preparacao = $connection->prepare($query);
+// $preparacao->execute();
+
+// while ($registro = $preparacao->fetch()){
+//     var_dump($registro);
+// }
+
+
+$url = explode('?' , $_SERVER['REQUEST_URI'])[0];
+
+$routes = include '../config/routes.php';
+
+
+if (false ===isset($routes[$url])){
+    (new ErrorController())->notFoundAction();
+    exit;
 }
 
-// use App\Controller\ErrorController;
-// use App\Controller\IndexController;
-// use App\Controller\ProductController;
+$controllerName = $routes[$url] ['controller'];
+$methodName = $routes[$url] ['method'];
 
-
-// $url = explode('?' , $_SERVER['REQUEST_URI'])[0];
-
-// function createRoute(string $controllerName, string $methodName){
-//     return [
-//         'controller'=> $controllerName,
-//         'method' => $methodName,
-
-//     ];
-
-// }
-
-// $routes = [
-//     '/'=> createRoute(IndexController::class, 'indexAction'),
-//     '/produtos' => createRoute(ProductController::class, 'listAction'),
-//     '/produtos/novo' => createRoute(ProductController::class, 'addAction'),
-
-
-// ];
-
-// if (false ===isset($routes[$url])){
-//     (new ErrorController())->notFoundAction();
-//     exit;
-// }
-
-// $controllerName = $routes[$url] ['controller'];
-// $methodName = $routes[$url] ['method'];
-
-// (new $controllerName())-> $methodName();
+(new $controllerName())-> $methodName();
 
