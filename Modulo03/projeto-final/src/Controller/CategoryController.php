@@ -18,10 +18,6 @@ class CategoryController extends AbstractController
         $result = $con->prepare('SELECT * FROM tb_category');
         $result->execute();
 
-        $cat = $result->fetch(\PDO::FETCH_ASSOC);
-
-        var_dump($cat);
-
-        parent::render('category/list');
+        parent::render('category/list', $result);
     }
 }

@@ -6,8 +6,10 @@ namespace App\Controller;
 
 abstract class AbstractController
 {
-    public function render(string $viewName): void
+    public function render(string $viewName, $data): void
     {
+    
+
         include dirname(__DIR__)."/View/{$viewName}.php";
     }
 }
