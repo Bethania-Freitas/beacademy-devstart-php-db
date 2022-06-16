@@ -5,7 +5,7 @@
 </div>
 
 
-<table class="table table-hover tabçe-striped">
+<table class="table table-hover table-striped">
     <thead class="table-dark">
         <tr>
             <th>#id</th>
@@ -32,7 +32,8 @@
                     <td>{$quantity}</td>
                     <td>{$created_at}</td>
                     <td>
-                        Excluir - Editar
+                        <a href='/produtos/excluir?id={$id}' class=' btn btn-outline-danger btn-sm'>Excluir</a>
+                        <a href='/produtos/editar?id={$id}' class=' btn btn-outline-warning btn-sm'>Editar</a>
                     </td>
                 </tr>
             ";

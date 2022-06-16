@@ -54,7 +54,58 @@ class ProductController extends AbstractController
     }
     public function editAction(): void
     {
-        parent::render('product/edit');
+        $id = $_GET['id'];
+
+        $con = Connection::getConnection();
+
+        $categories = $con->prepare('SELECT * FROM tb_category');
+        $categories->execute();
+
+        if ($_POST){
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $value = $_POST['value'];
+            $quantity = $_POST['quantity'];
+            $photo = $_POST['photo'];
+
+            $query = "
+                    UPDATE tb_product SET
+                        name = '{$name}',
+                        description = '{$description}',
+                        value = '{$value}',
+                        quantity = '{$quantity}',
+                        photo = '{$photo}'
+
+                    WHERE id='{$id}'
+                    ";
+            $resultUpdate = $con->prepare($query);
+            $resultUpdate->execute();
+
+            echo 'Pronto, produto atualizado';
+
+        }
+
+        $product = $con->prepare("SELECT * FROM tb_product WHERE id='{$id}'");
+        $product->execute();
+
+        parent::render('product/edit', [
+            'product' => $product->fetch(\PDO::FETCH_ASSOC),
+        ]);
         
+    }
+
+    public function removeAction(): void
+    {
+        $id = $_GET['id'];
+
+        $con = Connection::getConnection();
+
+        $result = $con->prepare("DELETE FROM tb_product WHERE id='{$id}'");
+        $result->execute();
+
+        parent::renderMessage('Pronto, produto excluido');
+
+
     }
 }
