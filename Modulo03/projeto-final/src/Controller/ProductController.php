@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Connection\Connection;
-use LDAP\Result;
+use Dompdf\Dompdf;
+
 
 class ProductController extends AbstractController
 {
@@ -107,5 +108,38 @@ class ProductController extends AbstractController
         parent::renderMessage('Pronto, produto excluido');
 
 
+    }
+
+    public function reportAction(): void
+    {
+        $con = Connection::getConnection();
+
+        $result = $con->prepare( 'SELECT id, name, quantity FROM tb_product');
+        $result->execute();
+
+        $html = "
+            <h1>Relatório de Produtos</h1>
+
+            <table border='1' width= '100%'>
+                <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Produto</th>
+                        <th>Saldo disponível</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            
+            
+        ";
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml($html);
+
+        $pdf->render();
+        $pdf->stream();
     }
 }
