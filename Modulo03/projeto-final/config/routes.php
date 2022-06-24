@@ -4,13 +4,12 @@ use App\Controller\CategoryController;
 use App\Controller\IndexController;
 use App\Controller\ProductController;
 
-function createRoute(string $controllerName, string $methodName){
+function createRoute(string $controllerName, string $methodName)
+{
     return [
         'controller'=> $controllerName,
         'method' => $methodName,
-
     ];
-
 }
 
 $routes = [
@@ -24,10 +23,6 @@ $routes = [
     '/categorias/nova' => createRoute(CategoryController::class, 'addAction'),
     '/categorias/excluir' => createRoute(CategoryController::class, 'removeAction'),
     '/categorias/editar' => createRoute(CategoryController::class, 'updateAction'),
-    
-
-
-
 ];
 
 return $routes;

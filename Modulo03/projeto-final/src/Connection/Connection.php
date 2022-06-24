@@ -16,7 +16,6 @@ abstract class Connection
 
         return new \PDO('mysql:host=localhost;dbname=' . $database, $username, $password);
 
-
     }
 }
 

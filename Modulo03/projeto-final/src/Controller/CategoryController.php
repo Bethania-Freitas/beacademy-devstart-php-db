@@ -6,9 +6,6 @@ namespace App\Controller;
 
 use App\Connection\Connection;
 
-
-// use FTP\Connection;
-
 class CategoryController extends AbstractController
 {
     public function listAction(): void
@@ -35,10 +32,8 @@ class CategoryController extends AbstractController
             $result->execute();
 
             echo 'Categoria cadastrada com sucesso!';
-
-
         }
-
+        
         parent::render('category/add');
     }
 
@@ -54,8 +49,8 @@ class CategoryController extends AbstractController
         $result->execute();
 
         echo 'Categoria excluida com sucesso!';
-
     }
+
     public function updateAction(): void
     {
         $id = $_GET['id'];

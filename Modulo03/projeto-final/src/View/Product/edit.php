@@ -4,7 +4,6 @@
 <form action="" method="post">
     <?php 
         extract($data);
-    
     ?>
 
     <label for="name">Nome</label>
@@ -21,9 +20,6 @@
 
     <label for="photo">Foto</label>
     <input value="<?php echo $product ['photo']; ?>" id="photo" name="photo" type="text" class="form-control mb-3">
-  
 
-    <button class="btn btn-primary mb-3">Atualizar</button>
-
-    
+    <button class="btn btn-primary mb-3">Atualizar</button>    
 </form>

@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Connection\Connection;
 use Dompdf\Dompdf;
 
-
 class ProductController extends AbstractController
 {
     public function listAction(): void
@@ -16,17 +15,15 @@ class ProductController extends AbstractController
 
         $result = $con->prepare('SELECT * FROM tb_product');
         $result->execute();
-
-
         
         parent::render('product/list', $result);
-
     }
+
     public function addAction(): void
     {
         $con = Connection::getConnection();
 
-        if ($_POST){
+        if ($_POST) {
             $name = $_POST['name'];
             $category_id = $_POST['category'];
             $description = $_POST['description'];
@@ -45,14 +42,12 @@ class ProductController extends AbstractController
             echo 'Pronto, produto cadastrado!';
         };
 
-        
-        
         $result = $con->prepare('SELECT * FROM tb_category');
         $result->execute();
 
-        parent::render('product/add', $result);
-        
+        parent::render('product/add', $result);      
     }
+
     public function editAction(): void
     {
         $id = $_GET['id'];
@@ -62,8 +57,7 @@ class ProductController extends AbstractController
         $categories = $con->prepare('SELECT * FROM tb_category');
         $categories->execute();
 
-        if ($_POST){
-
+        if ($_POST) {
             $name = $_POST['name'];
             $description = $_POST['description'];
             $value = $_POST['value'];
@@ -80,11 +74,11 @@ class ProductController extends AbstractController
 
                     WHERE id='{$id}'
                     ";
+
             $resultUpdate = $con->prepare($query);
             $resultUpdate->execute();
 
             echo 'Pronto, produto atualizado';
-
         }
 
         $product = $con->prepare("SELECT * FROM tb_product WHERE id='{$id}'");
@@ -92,8 +86,7 @@ class ProductController extends AbstractController
 
         parent::render('product/edit', [
             'product' => $product->fetch(\PDO::FETCH_ASSOC),
-        ]);
-        
+        ]);    
     }
 
     public function removeAction(): void
@@ -106,8 +99,6 @@ class ProductController extends AbstractController
         $result->execute();
 
         parent::renderMessage('Pronto, produto excluido');
-
-
     }
 
     public function reportAction(): void
@@ -119,8 +110,7 @@ class ProductController extends AbstractController
 
         $content = '';
 
-        while ($product = $result->fetch(\PDO::FETCH_ASSOC)){
-
+        while ($product = $result->fetch(\PDO::FETCH_ASSOC)) {
             extract($product);
 
             $content .="
@@ -131,9 +121,7 @@ class ProductController extends AbstractController
                     <td>{$category}</td>
                 </tr>
             ";
-        }
-
-      
+        }    
 
         $html = "
             <h1>Relatório de Produtos</h1>
@@ -145,20 +133,16 @@ class ProductController extends AbstractController
                         <th>Produto</th>
                         <th>Saldo disponível</th>
                         <th>Categoria</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     {$content}
                 </tbody>
-            </table>
-            
-            
+            </table>                  
         ";
 
         $pdf = new Dompdf();
         $pdf->loadHtml($html);
-
         $pdf->render();
         $pdf->stream();
     }

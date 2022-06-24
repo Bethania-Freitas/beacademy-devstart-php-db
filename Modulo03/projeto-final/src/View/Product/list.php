@@ -5,7 +5,6 @@
     <a href="/produtos/relatorio" class= "btn btn-outline-dark"  >Gerar Relatório</a>
 </div>
 
-
 <table class="table table-hover table-striped">
     <thead class="table-dark">
         <tr>
@@ -21,7 +20,7 @@
     </thead>
     <tbody>
         <?php
-            while ($product = $data->fetch(\PDO::FETCH_ASSOC)){
+            while ($product = $data->fetch(\PDO::FETCH_ASSOC)) {
             extract($product);
             echo "
                 <tr>
@@ -41,6 +40,4 @@
             }
         ?>
     </tbody>
-
-
 </table>

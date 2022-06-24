@@ -9,10 +9,7 @@
     do curso <b>DevStart</b> da <b>Be.Academy</b> em parceria com a <b>Paylivre</b>. 
     <br><br>
     Professor: <b>Alessandro Feitosa</b>
-    </p>
-   
-    
-    
+    </p>  
 </div>
 
 
